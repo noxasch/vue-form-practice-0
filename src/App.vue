@@ -1,8 +1,9 @@
 <script setup>
+  import SignupForm from './components/SignupForm.vue';
 </script>
 
 <template>
-  <h1>A Vue3 project</h1>
+  <SignupForm />
 </template>
 
 <style scoped>
