@@ -7,6 +7,7 @@
   const terms = ref(false);
   const tempSkill = ref('');
   const skills = ref([]);
+  const errors = ref({});
   // const names = ref([]);
 
   function addSkill() {
@@ -20,15 +21,21 @@
   function deleteSkill(skill) {
     skills.value = skills.value.filter((item) => item != skill);
   }
+
+  function onSubmit() {
+    //validate password
+    errors.value['password'] = password.value.length > 5 ? '' : 'Password must be at least 6 characters long!'
+  }
 </script>
 
 <template>
-  <form action="">
+  <form action="POST" @submit.prevent="onSubmit">
     <label for="email">Email</label>
     <input name="email" type="email" required v-model="email">
 
     <label for="password">Password</label>
     <input name="password" type="password" required v-model="password">
+    <div v-if="errors['password']" class="error">{{ errors['password'] }}</div>
 
     <label for="role">Role</label>
     <select name="role" id="" v-model="role" >
@@ -46,6 +53,10 @@
     <div class="terms">
       <input type="checkbox" name="tos" required v-model="terms">
       <label for="tos">Accept terms and conditions</label>
+    </div>
+
+    <div class="submit">
+      <button>Create an Account</button>
     </div>
 
     <!-- <div>
@@ -113,5 +124,25 @@
     font-weight: bold;
     color: #777;
     cursor: pointer;
+  }
+
+  button {
+    background: #0b6dff;
+    border: 0;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: #fff;
+    border-radius: 20px;
+  }
+
+  .submit {
+    text-align: center;
+  }
+
+  .error {
+    color: #ff0062;
+    margin-top: 10px;
+    font-size: 0.8em;
+    font-weight: bold;
   }
 </style>
